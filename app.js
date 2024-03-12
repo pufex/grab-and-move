@@ -46,22 +46,20 @@ notes.forEach((note, index) => {
     })
 })
 
-console.log(notesData);
-
 const drawLines = (ctx) => {
-    notesData.forEach((note) => {
-        ctx.save();
-        ctx.strokeStyle = "red"
-        ctx.lineWidth = 10;
-        ctx.beginPath();
-        ctx.moveTo(window.innerWidth/2, window.innerHeight/2);
-        if(note.x > window.innerWidth/2)
-            ctx.lineTo(note.x, note.y+note.h/2);
-        else
-            ctx.lineTo(note.x+note.w, note.y + note.h/2)
-        ctx.stroke();
-        ctx.closePath();
-        ctx.restore();
+    colors = ["red", "blue", "green", "yellow", "purple"]
+    notesData.forEach((note,index) => {
+        for(let i = 0; i < colors.length; i++){
+            ctx.save();
+            ctx.strokeStyle = colors[i%colors.length]
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(window.innerWidth/2, window.innerHeight/2);
+            ctx.bezierCurveTo(window.innerWidth/2, window.innerHeight/2+-40+i*10, window.innerWidth/2-40+i*10, window.innerHeight/2-20, note.x+note.w/2, note.y+note.h/2);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.restore();
+        }
     })
 }
 
